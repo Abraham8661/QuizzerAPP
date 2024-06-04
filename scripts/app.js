@@ -11,6 +11,7 @@ const CELEBRITIES = 'celebrities-cate';
 let QUIZ_POINTS = 0;
 let QUESTIONS_PASSED = 0;
 const POINT_PER_QUESTION = 10;
+let SECONDS = 120;
 
 
 function getQuiz(url){
@@ -26,13 +27,12 @@ function getQuiz(url){
 }
 
 function quizTimer(){
-    let seconds = 120;
     const countDown = window.setInterval(()=>{
         const timeSec = document.getElementById('quiz-timer');
-        timeSec.textContent = seconds;
-        seconds--;
+        timeSec.textContent = SECONDS;
+        SECONDS--;
 
-        if(seconds < 0){
+        if(SECONDS < 0){
             const timeExhaustedText = document.getElementById('time-exhausted');
             timeExhaustedText.classList.remove('hidden');
             timeExhaustedText.textContent = '⌛Your time has been exhausted';
@@ -177,8 +177,8 @@ function quizResponse(optionBox){
 
 function startQuiz(){
     const allStartQuizBtn = document.querySelectorAll('.start-quiz');
-    const startTimer = document.getElementById('start-quiz-btn');
-    const endQuizBtn = document.getElementById('end-quiz-btn');
+    //const startTimer = document.getElementById('start-quiz-btn');
+    //const endQuizBtn = document.getElementById('end-quiz-btn');
     allStartQuizBtn.forEach((startQuizBtn)=>{
         startQuizBtn.addEventListener('click', ()=>{
             //Quiz questions to display
@@ -187,13 +187,14 @@ function startQuiz(){
                 allTopics.classList.toggle('hidden');
                 quizSec.classList.toggle('hidden');
                 quizSec.classList.toggle('flex');
-                startTimer.addEventListener('click', ()=>{
-                    quizTimer()
-                    startTimer.classList.remove('flex');
-                    startTimer.classList.add('hidden');
-                    endQuizBtn.classList.remove('hidden');
-                    endQuizBtn.classList.add('flex');
-                })
+                quizTimer()
+                //startTimer.addEventListener('click', ()=>{
+                //    quizTimer()
+                //    startTimer.classList.remove('flex');
+                //    startTimer.classList.add('hidden');
+                //    endQuizBtn.classList.remove('hidden');
+                //    endQuizBtn.classList.add('flex');
+                //})
             }).catch((error)=>{
                 alert(error)
             })
