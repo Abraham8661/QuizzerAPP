@@ -177,15 +177,23 @@ function quizResponse(optionBox){
 
 function startQuiz(){
     const allStartQuizBtn = document.querySelectorAll('.start-quiz');
+    const startTimer = document.getElementById('start-quiz-btn');
+    const endQuizBtn = document.getElementById('end-quiz-btn');
     allStartQuizBtn.forEach((startQuizBtn)=>{
         startQuizBtn.addEventListener('click', ()=>{
             //Quiz questions to display
             const category = startQuizBtn.parentElement.id
             quizQuestions(category).then(()=>{
-                quizTimer()
                 allTopics.classList.toggle('hidden');
                 quizSec.classList.toggle('hidden');
                 quizSec.classList.toggle('flex');
+                startTimer.addEventListener('click', ()=>{
+                    quizTimer()
+                    startTimer.classList.remove('flex');
+                    startTimer.classList.add('hidden');
+                    endQuizBtn.classList.remove('hidden');
+                    endQuizBtn.classList.add('flex');
+                })
             }).catch((error)=>{
                 alert(error)
             })
