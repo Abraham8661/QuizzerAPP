@@ -101,7 +101,6 @@ function quizBank(response){
         }
         quizSec.append(questionElement)
         const element = document.getElementById(`Q${index+1}`)
-        console.log(element)
         quizManager(element, questionElement)
     })
 
@@ -196,28 +195,29 @@ function startQuiz(){
 startQuiz()
 
 function questionsAnsweredChecker(){
+    let result;
     const allQuestions = document.querySelectorAll('.questionElement');
-    let numOfTimes = 1
-    if(numOfTimes = 1){
-        allQuestions.forEach((question)=>{
-            if(question.classList.contains('question-answered')){
-                return true;
-            }else{
-                question.classList.add('errorColor')
-            }
-        })
-    }
-    numOfTimes-=1
+    allQuestions.forEach((question)=>{
+        if(question.classList.contains('question-answered')){
+            result = true;
+        }else{
+            question.classList.add('errorColor')
+            result = false;
+        }
+    })
+    return result;
 }
 
 function submitPopUp(){
-    if(questionsAnsweredChecker() == true){
+    const checker = questionsAnsweredChecker()
+    if(checker == true){
         const submitModal = document.getElementById('submit-modal');
         submitModal.classList.toggle('hidden');
         submitModal.classList.toggle('flex');
     }else{
         alert('Sorry, you need to answer all questions before submiting the quiz!')
     }
+
 }
 
 function resultPopUp(){
