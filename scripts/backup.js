@@ -49,7 +49,8 @@ function quizBank(response){
     const allQuestions = response.results
     allQuestions.forEach((question, index)=>{
         const questionElement = document.createElement('div');
-        questionElement.classList = 'questionElement flex flex-col items-start justify-start gap-4';
+        questionElement.id = 'questionElement';
+        questionElement.classList = 'flex flex-col items-start justify-start gap-4';
         questionElement.innerHTML = `
         <div class="flex items-center gap-2">
         <p class="font-bold">${index+1}.</p>
@@ -100,9 +101,6 @@ function quizBank(response){
             } 
         }
         quizSec.append(questionElement)
-        const element = document.getElementById(`Q${index+1}`)
-        console.log(element)
-        quizManager(element, questionElement)
     })
 
     //Form button
@@ -112,6 +110,7 @@ function quizBank(response){
     formBtn.classList = 'px-6 py-2 border md:max-w-40 border-black rounded-md flex items-center justify-center hover:bg-green-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none';
     formBtn.textContent = 'Submit quiz';
     quizSec.append(formBtn)
+    quizManager()
     submitQuizModal()
 }
 
@@ -145,18 +144,27 @@ async function quizQuestions(category){
     }
 }
 
-function quizManager(element, parentElement){
+
+//function quizManager(){
+//    const allOptions = document.querySelectorAll('.optionBox');
+//    allOptions.forEach((option)=>{
+//        option.addEventListener('click', ()=>{
+//            option.parentElement.classList.toggle('chosen-answer')
+//            option.classList.toggle('changeColor')
+//            //const parentElementId = option.parentElement.id
+//
+//            //Quiz response
+//            quizResponse(option)
+//        })
+//    })
+//}
+function quizManager(element){
     const allOptions = element.querySelectorAll('.optionBox');
     allOptions.forEach((option)=>{
         option.addEventListener('click', ()=>{
-            allOptions.forEach((button)=>{
-                button.classList.remove('changeColor')
-                button.parentElement.classList.remove('chosen-answer')
-                parentElement.classList.remove('question-answered')
-            })
-            option.parentElement.classList.add('chosen-answer')
-            option.classList.add('changeColor')
-            parentElement.classList.add('question-answered')
+            option.parentElement.classList.toggle('chosen-answer')
+            option.classList.toggle('changeColor')
+            //const parentElementId = option.parentElement.id
 
             //Quiz response
             quizResponse(option)
@@ -195,29 +203,11 @@ function startQuiz(){
 }
 startQuiz()
 
-function questionsAnsweredChecker(){
-    const allQuestions = document.querySelectorAll('.questionElement');
-    let numOfTimes = 1
-    if(numOfTimes = 1){
-        allQuestions.forEach((question)=>{
-            if(question.classList.contains('question-answered')){
-                return true;
-            }else{
-                question.classList.add('errorColor')
-            }
-        })
-    }
-    numOfTimes-=1
-}
-
 function submitPopUp(){
-    if(questionsAnsweredChecker() == true){
-        const submitModal = document.getElementById('submit-modal');
-        submitModal.classList.toggle('hidden');
-        submitModal.classList.toggle('flex');
-    }else{
-        alert('Sorry, you need to answer all questions before submiting the quiz!')
-    }
+    const submitModal = document.getElementById('submit-modal');
+    submitModal.classList.toggle('hidden');
+    submitModal.classList.toggle('flex');
+
 }
 
 function resultPopUp(){
