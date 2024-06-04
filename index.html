@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizzer App</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="/scripts/app.js" defer></script>
+</head>
+<body class="bg-slate-200">
+
+  <div id="submit-modal" class="w-full hidden fixed z-20 bg-black/50 h-full items-center justify-center mx-auto p-6">
+    <div class="flex flex-col gap-4 items-center p-6 rounded-lg bg-white justify-center w-full lg:max-w-sm">
+      <h6 class="font-medium text-xl">Are you sure want to submit?</h6>
+      <div class="flex items-center gap-4">
+        <button type="button" id="cancel-submit" class="bg-red-600 rounded-lg px-6 py-2 text-white hover:bg-transparent hover:border hover:border-black hover:text-black" type="button">No</button>
+        <button type="button" id="confirm-submit" class="bg-green-600 rounded-lg px-6 py-2 text-white hover:bg-transparent hover:border hover:border-black hover:text-black" type="button">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="result-modal" class="w-full hidden fixed z-20 bg-black/50 h-full items-center justify-center mx-auto p-6">
+    <div class="flex flex-col gap-8 items-center p-6 rounded-lg bg-white justify-center w-full lg:max-w-sm">
+      <h6 class="font-medium text-xl">Quiz Result</h6>
+      <h3 class="hidden" id="time-exhausted"></h3>
+      <div class="flex flex-col items-center gap-2">
+        <h3 id="quiz-score"></h3>
+        <h3 id="questions-passed"></h3>
+        <h3 class="text-center" id="quiz-remark"></h3>
+      </div>
+      <a href="" id="return-home" class="bg-green-600 rounded-lg px-6 py-2 text-white hover:bg-transparent hover:border hover:border-black hover:text-black" type="button">Return home</a>
+    </div>
+  </div>
+
+  <section class="w-screen lg:max-w-5xl p-6 mx-auto flex flex-col gap-12 items-center">
+    <div class="flex flex-col gap-2 items-center">
+      <h2 class="text-[2rem] font-bold">Quizzer App</h2>
+      <p class="text-center">Test your skills with our top topics with a variaty of questions set for you!</p>
+    </div>
+    <!--Quiz Categories-->
+    <div id="allTopics" class="flex items-center flex-col gap-4 justify-center md:flex-row md:flex-wrap w-full">
+      <!--Quiz Card-->
+      <div id="gen-know" class="flex items-center flex-col gap-6 p-4 rounded-md bg-white shadow-lg">
+        <img src="./images/gen_knowledge.jpg" class="w-60 h-40 rounded-md" alt="" srcset="">
+        <div class="space-y-1 text-center">
+          <h5 class="text-center font-semibold">General Knowledge</h5>
+        </div>
+        <div class="start-quiz px-6 py-2 border border-black rounded-md flex items-center hover:bg-blue-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">Start quiz</div>
+      </div>
+      <!--Quiz Card-->
+      <div id="entertain" class="flex items-center flex-col gap-6 p-4 rounded-md bg-white shadow-lg">
+        <img src="./images/entertain.jpg" class="w-60 h-40  rounded-md" alt="" srcset="">
+        <div class="space-y-1 text-center">
+          <h5 class="text-center font-semibold">Entertainment</h5>
+        </div>
+        <div class="start-quiz px-6 py-2 border border-black rounded-md flex items-center hover:bg-blue-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">Start quiz</div>
+      </div>
+      <!--Quiz Card-->
+      <div id="science&tech" class="flex items-center flex-col gap-6 p-4 rounded-md bg-white shadow-lg">
+        <img src="./images/science_img.jpg" class="w-60 h-40  rounded-md" alt="" srcset="">
+        <div class="space-y-1 text-center">
+          <h5 class="text-center font-semibold">Science & Nature</h5>
+        </div>
+        <div class="start-quiz px-6 py-2 border border-black rounded-md flex items-center hover:bg-blue-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">Start quiz</div>
+      </div>
+      <!--Quiz Card-->
+      <div id="info-tech" class="flex items-center flex-col gap-6 p-4 rounded-md bg-white shadow-lg">
+        <img src="./images/programming_img.jpg" class="w-60 h-40  rounded-md" alt="" srcset="">
+        <div class="space-y-1 text-center">
+          <h5 class="text-center font-semibold">Information Technology</h5>
+        </div>
+        <div class="start-quiz px-6 py-2 border border-black rounded-md flex items-center hover:bg-blue-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">Start quiz</div>
+      </div>
+      <!--Quiz Card-->
+      <div id="art-cate" class="flex items-center flex-col gap-6 p-4 rounded-md bg-white shadow-lg">
+        <img src="./images/sports-img.jpg" class="w-60 h-40  rounded-md" alt="" srcset="">
+        <div class="space-y-1 text-center">
+          <h5 class="text-center font-semibold">Sports</h5>
+        </div>
+        <div class="start-quiz px-6 py-2 border border-black rounded-md flex items-center hover:bg-blue-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">Start quiz</div>
+      </div>
+      <!--Quiz Card-->
+      <div id="celebrities-cate" class="flex items-center flex-col gap-6 p-4 rounded-md bg-white shadow-lg">
+        <img src="./images/geography.jpg" class="w-60 h-40 rounded-md" alt="" srcset="">
+        <div class="space-y-1 text-center">
+          <h5 class="text-center font-semibold">Geography</h5>
+        </div>
+        <div class="start-quiz px-6 py-2 border border-black rounded-md flex items-center hover:bg-blue-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">Start quiz</div>
+      </div>
+    </div>
+
+    <!--Quiz Section-->
+    <form id="quiz-section" class="hidden flex-col w-full p-6 border gap-10 border-slate-500 rounded-md" action="">
+      <div class="flex flex-col gap-4">
+        <h5 id="quiz-title" class="text-center font-semibold text-[1.5rem]"></h5>
+        <p class="text-center">Complete the quiz within the 2 minutes timeframe. Each question carries 10points.</p>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-4">
+          <div class="flex items-center gap-2">
+            <h5>Total Questions:</h5>
+            <h5 class="font-bold">20</h5>
+          </div>
+          <div class="flex items-center gap-2">
+            <h5>Time Remaining:</h5>
+            <h5 id="quiz-timer" class="font-bold">120</h5>
+          </div>
+          <div id="end-quiz-btn" class="px-6 py-2 border border-black rounded-md flex items-center justify-center hover:bg-red-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">End quiz</div>
+        </div>
+      </div>
+      
+      <!--
+      <div class="flex flex-col items-start justify-start gap-4">
+        <div class="flex items-center gap-2">
+          <p class="font-bold">1.</p>
+          <p id="question" class="font-semibold">A great time</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-2">
+          <div id="optionA" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black cursor-pointer select-none">A</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div id="optionB" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black hover:bg-green-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">B</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div id="optionC" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black hover:bg-green-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">C</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div id="optionD" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black hover:bg-green-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">D</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-start justify-start gap-4">
+        <div class="flex items-center gap-2">
+          <p class="font-bold">1.</p>
+          <p id="question" class="font-semibold">A great time</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-2">
+          <div id="optionA" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black cursor-pointer select-none">A</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div id="optionB" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black hover:bg-green-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">B</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div id="optionC" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black hover:bg-green-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">C</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div id="optionD" class="flex items-center gap-4">
+            <div class="options flex items-center py-1 px-3 rounded-md border border-black hover:bg-green-600 hover:border-none hover:text-white transition-colors delay-100 cursor-pointer select-none">D</div>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+      </div>
+      -->
+
+    </form>
+
+  </section>
+  
+</body>
+</html>
